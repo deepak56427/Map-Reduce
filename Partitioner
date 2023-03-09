@@ -1,0 +1,133 @@
+[training@localhost ~]$ cd Lahasya
+[training@localhost Lahasya]$ ls -l
+total 104
+-rw-rw-r-- 1 training training 5728 Feb  9 17:22 Distinct.jar
+-rw-rw-r-- 1 training training 4523 Feb  9 09:54 DistinctValues.jar
+-rw-rw-r-- 1 training training   43 Feb 12 16:39 File1.txt
+-rw-rw-r-- 1 training training   50 Feb 12 16:40 File2.txt
+-rw-rw-r-- 1 training training   61 Feb 12 16:40 File3.txt
+-rw-rw-r-- 1 training training 4437 Feb 13 04:00 MinMax.jar
+-rw-rw-r-- 1 training training   44 Feb 10 06:07 num
+-rw-rw-r-- 1 training training 4535 Feb 10 06:24 OE.jar
+-rw-rw-r-- 1 training training 5281 Feb 13 04:07 partitioner.jar
+-rw-rw-r-- 1 training training   43 Feb 10 05:25 Sample.txt
+-rw-rw-r-- 1 training training   57 Feb  8 20:24 WC02.txt
+-rw-rw-r-- 1 training training 4285 Feb 10 04:54 WC1.jar
+-rw-rw-r-- 1 training training 4400 Feb  8 20:11 WC2.jar
+-rw-rw-r-- 1 training training   58 Feb  8 20:22 WC2.txt
+-rw-rw-r-- 1 training training 4322 Feb 10 05:17 WC.jar
+-rw-rw-r-- 1 training training 2180 Feb 10 06:34 weatherData.txt
+-rw-rw-r-- 1 training training 4436 Feb 12 17:04 WS.jar
+[training@localhost Lahasya]$ hadoop fs -mkdir cp/input
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal access_log_400 cp/input
+copyFromLocal: `access_log_400': No such file or directory
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal access_log_400.txt cp/input
+copyFromLocal: `access_log_400.txt': No such file or directory
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal access_logs_400.txt cp/input
+copyFromLocal: `access_logs_400.txt': No such file or directory
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal access_logs_400.txt cp/input
+copyFromLocal: `access_logs_400.txt': No such file or directory
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal access_logs_400 cp/input
+[training@localhost Lahasya]$ hadoop fs -ls cp/input
+Found 1 items
+-rw-r--r--   1 training supergroup      39168 2023-02-13 04:20 cp/input/access_logs_400
+[training@localhost Lahasya]$ hadoop jar partitioner.jar com.cp.PartitionerDriver cp/input cp/output
+Exception in thread "main" java.lang.NoSuchMethodException: com.cp.PartitionerDriver.main([Ljava.lang.String;)
+	at java.lang.Class.getMethod(Class.java:1605)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:202)
+[training@localhost Lahasya]$ hadoop jar partitioner.jar  cp/input cp/output
+Exception in thread "main" java.lang.ClassNotFoundException: cp.input
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:247)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:201)
+[training@localhost Lahasya]$ hadoop jar partitioner.jar cp/input cp/output
+Exception in thread "main" java.lang.ClassNotFoundException: cp.input
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:202)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:190)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:247)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:247)
+	at org.apache.hadoop.util.RunJar.main(RunJar.java:201)
+[training@localhost Lahasya]$ hadoop jar partitioner.jar cp/input cp/output
+23/02/13 04:25:52 WARN mapred.JobClient: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+23/02/13 04:25:53 WARN snappy.LoadSnappy: Snappy native library is available
+23/02/13 04:25:53 INFO snappy.LoadSnappy: Snappy native library loaded
+23/02/13 04:25:53 INFO mapred.FileInputFormat: Total input paths to process : 1
+23/02/13 04:25:53 INFO mapred.JobClient: Running job: job_202302130325_0003
+23/02/13 04:25:54 INFO mapred.JobClient:  map 0% reduce 0%
+23/02/13 04:25:57 INFO mapred.JobClient:  map 100% reduce 0%
+23/02/13 04:26:00 INFO mapred.JobClient:  map 100% reduce 8%
+23/02/13 04:26:01 INFO mapred.JobClient:  map 100% reduce 16%
+23/02/13 04:26:04 INFO mapred.JobClient:  map 100% reduce 33%
+23/02/13 04:26:07 INFO mapred.JobClient:  map 100% reduce 50%
+23/02/13 04:26:10 INFO mapred.JobClient:  map 100% reduce 66%
+23/02/13 04:26:13 INFO mapred.JobClient:  map 100% reduce 83%
+23/02/13 04:26:17 INFO mapred.JobClient:  map 100% reduce 100%
+23/02/13 04:26:17 INFO mapred.JobClient: Job complete: job_202302130325_0003
+23/02/13 04:26:17 INFO mapred.JobClient: Counters: 33
+23/02/13 04:26:17 INFO mapred.JobClient:   File System Counters
+23/02/13 04:26:17 INFO mapred.JobClient:     FILE: Number of bytes read=8357
+23/02/13 04:26:17 INFO mapred.JobClient:     FILE: Number of bytes written=2380739
+23/02/13 04:26:17 INFO mapred.JobClient:     FILE: Number of read operations=0
+23/02/13 04:26:17 INFO mapred.JobClient:     FILE: Number of large read operations=0
+23/02/13 04:26:17 INFO mapred.JobClient:     FILE: Number of write operations=0
+23/02/13 04:26:17 INFO mapred.JobClient:     HDFS: Number of bytes read=39279
+23/02/13 04:26:17 INFO mapred.JobClient:     HDFS: Number of bytes written=71
+23/02/13 04:26:17 INFO mapred.JobClient:     HDFS: Number of read operations=14
+23/02/13 04:26:17 INFO mapred.JobClient:     HDFS: Number of large read operations=0
+23/02/13 04:26:17 INFO mapred.JobClient:     HDFS: Number of write operations=24
+23/02/13 04:26:17 INFO mapred.JobClient:   Job Counters 
+23/02/13 04:26:17 INFO mapred.JobClient:     Launched map tasks=1
+23/02/13 04:26:17 INFO mapred.JobClient:     Launched reduce tasks=12
+23/02/13 04:26:17 INFO mapred.JobClient:     Data-local map tasks=1
+23/02/13 04:26:17 INFO mapred.JobClient:     Total time spent by all maps in occupied slots (ms)=3523
+23/02/13 04:26:17 INFO mapred.JobClient:     Total time spent by all reduces in occupied slots (ms)=38991
+23/02/13 04:26:17 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+23/02/13 04:26:17 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+23/02/13 04:26:17 INFO mapred.JobClient:   Map-Reduce Framework
+23/02/13 04:26:17 INFO mapred.JobClient:     Map input records=400
+23/02/13 04:26:17 INFO mapred.JobClient:     Map output records=400
+23/02/13 04:26:17 INFO mapred.JobClient:     Map output bytes=7485
+23/02/13 04:26:17 INFO mapred.JobClient:     Input split bytes=111
+23/02/13 04:26:17 INFO mapred.JobClient:     Combine input records=0
+23/02/13 04:26:17 INFO mapred.JobClient:     Combine output records=0
+23/02/13 04:26:17 INFO mapred.JobClient:     Reduce input groups=4
+23/02/13 04:26:17 INFO mapred.JobClient:     Reduce shuffle bytes=8357
+23/02/13 04:26:17 INFO mapred.JobClient:     Reduce input records=400
+23/02/13 04:26:17 INFO mapred.JobClient:     Reduce output records=4
+23/02/13 04:26:17 INFO mapred.JobClient:     Spilled Records=800
+23/02/13 04:26:17 INFO mapred.JobClient:     CPU time spent (ms)=6420
+23/02/13 04:26:17 INFO mapred.JobClient:     Physical memory (bytes) snapshot=1186496512
+23/02/13 04:26:17 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=5231198208
+23/02/13 04:26:17 INFO mapred.JobClient:     Total committed heap usage (bytes)=956956672
+23/02/13 04:26:17 INFO mapred.JobClient:   org.apache.hadoop.mapreduce.lib.input.FileInputFormatCounter
+23/02/13 04:26:17 INFO mapred.JobClient:     BYTES_READ=39168
+[training@localhost Lahasya]$ hadoop fs -ls cp/output
+Found 14 items
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/_SUCCESS
+drwxr-xr-x   - training supergroup          0 2023-02-13 04:25 cp/output/_logs
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:25 cp/output/part-00000
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:25 cp/output/part-00001
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00002
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00003
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00004
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00005
+-rw-r--r--   1 training supergroup         71 2023-02-13 04:26 cp/output/part-00006
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00007
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00008
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00009
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00010
+-rw-r--r--   1 training supergroup          0 2023-02-13 04:26 cp/output/part-00011
+[training@localhost Lahasya]$ hadoop fs -cat cp/output/part-00006
+10.207.190.45	21
+10.216.113.172	217
+10.223.157.186	115
+10.82.30.199	47
+[training@localhost Lahasya]$ 
