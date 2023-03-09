@@ -1,0 +1,122 @@
+[training@localhost ~]$ cd lahasya
+bash: cd: lahasya: No such file or directory
+[training@localhost ~]$ cd Lahasya
+[training@localhost Lahasya]$ ls -l
+total 8
+-rw-rw-r-- 1 training training 4400 Feb  8 09:41 WC2.jar
+[training@localhost Lahasya]$ cd ..
+[training@localhost ~]$ ls -l
+total 60
+drwxr-xr-x  3 training training 4096 Feb  8 09:03 Desktop
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Documents
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Downloads
+drwxr-xr-x  9 training training 4096 Feb  8 09:18 eclipse
+drwxrwxr-x  2 training training 4096 Feb  8 09:41 Lahasya
+drwxr-xr-x  2 training training 4096 Dec 18  2012 lib
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Music
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Pictures
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Public
+drwxrwxr-x  2 training training 4096 Dec 18  2012 scripts
+drwxrwxr-x 13 training training 4096 Nov  9  2012 src
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Templates
+drwxrwxr-x  5 training training 4096 Dec 18  2012 training_materials
+drwxr-xr-x  2 training training 4096 Feb  8 08:42 Videos
+drwxrwxr-x 17 training training 4096 Feb  8 09:24 workspace
+[training@localhost ~]$ cd Lahasya
+[training@localhost Lahasya]$ ls -l
+total 8
+-rw-rw-r-- 1 training training 4400 Feb  8 09:41 WC2.jar
+[training@localhost Lahasya]$ hadoop fs -mkdir WC2/input
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal cd ..
+copyFromLocal: `cd': No such file or directory
+[training@localhost Lahasya]$ cd --
+[training@localhost ~]$ cd Desktop
+[training@localhost Desktop]$ vi new.txt
+[training@localhost Desktop]$ cd Lahasya
+bash: cd: Lahasya: No such file or directory
+[training@localhost Desktop]$ cd --
+[training@localhost ~]$ cd Lahasya
+[training@localhost Lahasya]$ ls -l
+total 8
+-rw-rw-r-- 1 training training 4400 Feb  8 09:41 WC2.jar
+[training@localhost Lahasya]$ cd --
+[training@localhost ~]$ vi WC2.txt
+[training@localhost ~]$ ls
+Desktop    eclipse  Music     scripts    training_materials  workspace
+Documents  Lahasya  Pictures  src        Videos
+Downloads  lib      Public    Templates  WC2.txt
+[training@localhost ~]$ cd Lahasya
+[training@localhost Lahasya]$ vi WC02.txt
+[training@localhost Lahasya]$ ls
+WC02.txt  WC2.jar
+[training@localhost Lahasya]$ hadoop fs -mkdir WC2
+mkdir: `WC2': File exists
+[training@localhost Lahasya]$ hadoop fs -mkdir wc2
+[training@localhost Lahasya]$ hadoop fs -mkdir wc2/input
+[training@localhost Lahasya]$ hadoop fs -copyFromLocal WC02.txt wc2/input
+[training@localhost Lahasya]$ hadoop fs -ls wc2/input
+Found 1 items
+-rw-r--r--   1 training supergroup         57 2023-02-08 09:57 wc2/input/WC02.txt
+[training@localhost Lahasya]$ ls -l
+total 12
+-rw-rw-r-- 1 training training   57 Feb  8 09:54 WC02.txt
+-rw-rw-r-- 1 training training 4400 Feb  8 09:41 WC2.jar
+[training@localhost Lahasya]$ hadoop jar WC2.jar wc2/input wc2/output
+23/02/08 09:59:06 WARN mapred.JobClient: Use GenericOptionsParser for parsing the arguments. Applications should implement Tool for the same.
+23/02/08 09:59:06 INFO input.FileInputFormat: Total input paths to process : 1
+23/02/08 09:59:06 WARN snappy.LoadSnappy: Snappy native library is available
+23/02/08 09:59:06 INFO snappy.LoadSnappy: Snappy native library loaded
+23/02/08 09:59:06 INFO mapred.JobClient: Running job: job_202302080842_0001
+23/02/08 09:59:07 INFO mapred.JobClient:  map 0% reduce 0%
+23/02/08 09:59:11 INFO mapred.JobClient:  map 100% reduce 0%
+23/02/08 09:59:16 INFO mapred.JobClient:  map 100% reduce 100%
+23/02/08 09:59:16 INFO mapred.JobClient: Job complete: job_202302080842_0001
+23/02/08 09:59:16 INFO mapred.JobClient: Counters: 32
+23/02/08 09:59:16 INFO mapred.JobClient:   File System Counters
+23/02/08 09:59:16 INFO mapred.JobClient:     FILE: Number of bytes read=129
+23/02/08 09:59:16 INFO mapred.JobClient:     FILE: Number of bytes written=361966
+23/02/08 09:59:16 INFO mapred.JobClient:     FILE: Number of read operations=0
+23/02/08 09:59:16 INFO mapred.JobClient:     FILE: Number of large read operations=0
+23/02/08 09:59:16 INFO mapred.JobClient:     FILE: Number of write operations=0
+23/02/08 09:59:16 INFO mapred.JobClient:     HDFS: Number of bytes read=174
+23/02/08 09:59:16 INFO mapred.JobClient:     HDFS: Number of bytes written=43
+23/02/08 09:59:16 INFO mapred.JobClient:     HDFS: Number of read operations=2
+23/02/08 09:59:16 INFO mapred.JobClient:     HDFS: Number of large read operations=0
+23/02/08 09:59:16 INFO mapred.JobClient:     HDFS: Number of write operations=1
+23/02/08 09:59:16 INFO mapred.JobClient:   Job Counters 
+23/02/08 09:59:16 INFO mapred.JobClient:     Launched map tasks=1
+23/02/08 09:59:16 INFO mapred.JobClient:     Launched reduce tasks=1
+23/02/08 09:59:16 INFO mapred.JobClient:     Data-local map tasks=1
+23/02/08 09:59:16 INFO mapred.JobClient:     Total time spent by all maps in occupied slots (ms)=4204
+23/02/08 09:59:16 INFO mapred.JobClient:     Total time spent by all reduces in occupied slots (ms)=3127
+23/02/08 09:59:16 INFO mapred.JobClient:     Total time spent by all maps waiting after reserving slots (ms)=0
+23/02/08 09:59:16 INFO mapred.JobClient:     Total time spent by all reduces waiting after reserving slots (ms)=0
+23/02/08 09:59:16 INFO mapred.JobClient:   Map-Reduce Framework
+23/02/08 09:59:16 INFO mapred.JobClient:     Map input records=3
+23/02/08 09:59:16 INFO mapred.JobClient:     Map output records=11
+23/02/08 09:59:16 INFO mapred.JobClient:     Map output bytes=101
+23/02/08 09:59:16 INFO mapred.JobClient:     Input split bytes=117
+23/02/08 09:59:16 INFO mapred.JobClient:     Combine input records=0
+23/02/08 09:59:16 INFO mapred.JobClient:     Combine output records=0
+23/02/08 09:59:16 INFO mapred.JobClient:     Reduce input groups=6
+23/02/08 09:59:16 INFO mapred.JobClient:     Reduce shuffle bytes=129
+23/02/08 09:59:16 INFO mapred.JobClient:     Reduce input records=11
+23/02/08 09:59:16 INFO mapred.JobClient:     Reduce output records=6
+23/02/08 09:59:16 INFO mapred.JobClient:     Spilled Records=22
+23/02/08 09:59:16 INFO mapred.JobClient:     CPU time spent (ms)=1100
+23/02/08 09:59:16 INFO mapred.JobClient:     Physical memory (bytes) snapshot=271745024
+23/02/08 09:59:16 INFO mapred.JobClient:     Virtual memory (bytes) snapshot=807636992
+23/02/08 09:59:16 INFO mapred.JobClient:     Total committed heap usage (bytes)=197394432
+[training@localhost Lahasya]$ hadoop fs -ls wc2/output
+Found 3 items
+-rw-r--r--   1 training supergroup          0 2023-02-08 09:59 wc2/output/_SUCCESS
+drwxr-xr-x   - training supergroup          0 2023-02-08 09:59 wc2/output/_logs
+-rw-r--r--   1 training supergroup         43 2023-02-08 09:59 wc2/output/part-r-00000
+[training@localhost Lahasya]$ hadoop fs -cat wc2/output/part-r-00000
+This	3
+V2	1
+YARN	1
+also	1
+is	3
+mapreduce	2
+[training@localhost Lahasya]$ 
